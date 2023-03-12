@@ -1,8 +1,11 @@
 ﻿
 
+using Users.ApplicationCore.Domain;
+using Users.Domain.Entities;
+
 namespace Users.ApplicationCore.Interfaces;
 
-public interface IRepository<T> where T : IAggregateRoot
+public interface IRepository<T> where T: BaseEntity
 {
     Task<T> GetById(Guid id);
     Task Create(T entity);

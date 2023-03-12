@@ -1,8 +1,8 @@
 ﻿
 
 using MongoDB.Driver;
-using Users.ApplicationCore.Entities.UserAggregates;
 using Users.ApplicationCore.Interfaces;
+using Users.Domain.Entities;
 using Users.Infrastructure.Interfaces;
 
 namespace Users.Infrastructure.Data;
@@ -34,7 +34,7 @@ public class UsersRepository : IUsersRepository
     {
         FilterDefinition<UserEntity> filter = Builders<UserEntity>.Filter.And(Builders<UserEntity>.Filter.ElemMatch(p => p.FirstName, firstName),
                                                                               Builders<UserEntity>.Filter.ElemMatch(p => p.LastName, lastName),
-                                                                               Builders<UserEntity>.Filter.Eq(p => p.AuditTrail.Any(), hasConnected));
+                                                                               Builders<UserEntity>.Filter.Eq(p => p.LastConnectionDate.HasValue, hasConnected));
 
         return await _context.Users.Find(filter).ToListAsync();
     }

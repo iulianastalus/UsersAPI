@@ -1,5 +1,4 @@
-﻿
-using Users.ApplicationCore.Entities.UserAggregates;
+﻿using Users.Domain.Entities;
 
 namespace Users.ApplicationCore.Interfaces;
 public interface IUsersRepository :IRepository<UserEntity>

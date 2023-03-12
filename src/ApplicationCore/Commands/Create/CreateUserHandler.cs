@@ -2,8 +2,8 @@
 
 using AutoMapper;
 using MediatR;
-using Users.ApplicationCore.Entities.UserAggregates;
 using Users.ApplicationCore.Interfaces;
+using Users.Domain.Entities;
 
 namespace Users.ApplicationCore.Commands;
 
@@ -27,7 +27,7 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand, CreateUserRe
         return new CreateUserResponse
         {
            Id = user.Id,
-           Success= user.Id != Guid.Empty,
+           Status = user.Id != Guid.Empty ? Enum.OperationStatus.Success : Enum.OperationStatus.Error
         };
 
     }

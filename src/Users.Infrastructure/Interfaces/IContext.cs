@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using Users.ApplicationCore.Entities.UserAggregates;
+using Users.Domain.Entities;
 
 namespace Users.Infrastructure.Interfaces;
 

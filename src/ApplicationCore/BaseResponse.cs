@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Users.ApplicationCore.Enum;
 
-namespace Users.ApplicationCore
+namespace Users.ApplicationCore;
+
+public class BaseResponse
 {
-    public class BaseResponse
-    {
-        public Guid Id { get; set; }
-        public bool Success { get; set; }
-        public string Error { get; set; }
-    }
+    public Guid Id { get; set; }
+    public OperationStatus Status { get; set; }
 }

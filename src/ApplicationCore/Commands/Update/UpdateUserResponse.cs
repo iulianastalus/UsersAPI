@@ -1,8 +1,12 @@
 ﻿
 
-namespace Users.ApplicationCore.Commands
+namespace Users.ApplicationCore.Commands;
+
+public class UpdateUserResponse :BaseResponse
 {
-    public class UpdateUserResponse
-    {
-    }
+    public string UserName { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public DateTime UpdatedDate { get; set; }
+
 }
