@@ -1,4 +1,4 @@
-﻿namespace Users.Domain.Entities;
+﻿namespace Users.ApplicationCore.Entities;
 
 public class UserEntity :BaseEntity
 {   

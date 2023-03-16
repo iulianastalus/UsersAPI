@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Users.ApplicationCore.Entities;
 using Users.ApplicationCore.ValueObjects;
-using Users.Domain.Entities;
 using Users.Infrastructure.Interfaces;
 namespace Users.Infrastructure.Data;
 

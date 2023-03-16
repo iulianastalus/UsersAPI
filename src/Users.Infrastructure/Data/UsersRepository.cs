@@ -1,8 +1,8 @@
 ﻿
 
 using MongoDB.Driver;
+using Users.ApplicationCore.Entities;
 using Users.ApplicationCore.Interfaces;
-using Users.Domain.Entities;
 using Users.Infrastructure.Interfaces;
 
 namespace Users.Infrastructure.Data;

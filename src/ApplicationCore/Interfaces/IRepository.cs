@@ -1,7 +1,4 @@
-﻿
-
-using Users.ApplicationCore.Domain;
-using Users.Domain.Entities;
+﻿using Users.ApplicationCore.Entities;
 
 namespace Users.ApplicationCore.Interfaces;
 

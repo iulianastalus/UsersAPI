@@ -1,4 +1,4 @@
-﻿using Users.Domain.Entities;
+﻿using Users.ApplicationCore.Entities;
 
 namespace Users.ApplicationCore.Interfaces;
 public interface IUsersRepository :IRepository<UserEntity>

@@ -2,9 +2,9 @@
 
 public class IntegrationBaseEvent
 {
-    public int Version { get; set; }
-    public DateTime CreatedDate { get; set; }
+    public Guid Id { get; set; }
     public string EventType { get; private set; }
+    public int Version { get; set; }
     public IntegrationBaseEvent(string eventType)
     {
         this.EventType= eventType;
