@@ -21,7 +21,6 @@ namespace Users.API.DependencyInjection
     {
         public static void RegisterCommonServices(this IServiceCollection services, ConfigurationManager configuration)
         {
-            var t = configuration.GetSection(nameof(RabbitConfig)).GetSection("ConnectionString").Value;
             services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetAssembly(typeof(CreateUserHandler))));
             services.AddScoped(typeof(IEventSourcingHandler<UserAggregate>), typeof(EventSourcingHandler));
