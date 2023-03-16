@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  usersdb:
+    image: mongo
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  users.api:
+    image: ${DOCKER_REGISTRY-}usersapi
+    build:
+      context: .
+      dockerfile: src/Users.API/Dockerfile
+
+volumes:
+  users_data:
