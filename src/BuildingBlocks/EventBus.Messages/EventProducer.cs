@@ -18,15 +18,9 @@ public class EventProducer :IEventProducer
         _publishEndPoint = publishEndPoint;
     }
 
-    public async Task ProduceAsync<T>(string topic, T @event) where T : IntegrationBaseEvent
+    public async Task ProduceAsync<T>(T @event) where T : IntegrationBaseEvent
     {
-        var eventMessage = new
-        {
-            Key = Guid.NewGuid().ToString(),
-            Value = JsonSerializer.Serialize(@event, @event.GetType())
-        };
-
-        await _publishEndPoint.Publish(eventMessage);       
+        await _publishEndPoint.Publish<UserCreatedEvent>(@event);       
     }
 }
 

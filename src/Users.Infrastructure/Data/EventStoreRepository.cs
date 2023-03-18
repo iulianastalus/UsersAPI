@@ -1,7 +1,4 @@
-﻿
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Runtime;
 using Users.ApplicationCore.Interfaces;
@@ -13,12 +10,14 @@ namespace Users.Infrastructure.Data;
 public class EventStoreRepository : IEventStoreRepository<EventModel>
 {
     private readonly IMongoCollection<EventModel> _eventStoreCollection;
+    private readonly IOptions<DbSettings> _config;
     public EventStoreRepository(IOptions<DbSettings> config)
     {
+        _config = config;
         var mongoClient = new MongoClient(config.Value.ConnectionString);
         var mongoDatabase = mongoClient.GetDatabase(config.Value.DatabaseName);
 
-        _eventStoreCollection = mongoDatabase.GetCollection<EventModel>(config.Value.EventCollectionName);
+        _eventStoreCollection = mongoDatabase.GetCollection<EventModel>(config.Value.EventsCollectionName);
     }
     public async Task<List<EventModel>> FindAllAsync()
     {

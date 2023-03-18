@@ -3,9 +3,15 @@ version: '3.4'
 services:
   usersdb:
     image: mongo
-    
+
   rabbitmq:
-    image: rabbitmq:3-management-alpine
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: "rabbitmq"
+    tty: true
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
 
   users.api:
     image: ${DOCKER_REGISTRY-}usersapi

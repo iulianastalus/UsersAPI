@@ -2,6 +2,10 @@
 using EventBus.Messages;
 using EventBus.Messages.Events.Interfaces;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using System.Configuration;
 using System.Reflection;
 using Users.ApplicationCore.Commands;
 using Users.ApplicationCore.Domain;
@@ -26,7 +30,13 @@ namespace Users.API.DependencyInjection
             services.AddScoped(typeof(IEventSourcingHandler<UserAggregate>), typeof(EventSourcingHandler));
             services.AddMassTransit(cfg=> cfg.UsingRabbitMq((ctx,cfg) =>
             {
-                cfg.Host(configuration.GetSection(nameof(RabbitConfig)).GetSection("ConnectionString").Value);
+                //cfg.Host(configuration.GetSection(nameof(RabbitConfig)).GetSection("ConnectionString").Value);
+                cfg.Host(new Uri("amqp://guest:guest@rabbitmq:5672/"), h =>
+                    {
+                        h.Username("guest");
+                        h.Password("guest");
+                    });
+
             }));
             services.Configure<MassTransitHostOptions>(options =>
             {
@@ -36,8 +46,25 @@ namespace Users.API.DependencyInjection
             });
         }
 
+        public static void RegisterDbConnection(this IServiceCollection services)
+        {
+            services.AddSingleton<IMongoClient, MongoClient>(services =>
+            {
+                var mongoSettings = services.GetRequiredService<IOptions<DbSettings>>();
+                return new MongoClient(mongoSettings.Value.ConnectionString);
+            });
+        }
+
+        public static void RegisterConfigurations(this IServiceCollection services, ConfigurationManager configuration)
+        {
+            services.Configure<DbSettings>(configuration.GetSection(nameof(DbSettings)));
+        }
+
+
+
         public static void RegisterSpecificServices(this IServiceCollection services)
         {
+            
             services.AddScoped<IEventStore, EventStore>();
             services.AddScoped<IEventProducer, EventProducer>();
             services.AddScoped<IUsersRepository, UsersRepository>();
