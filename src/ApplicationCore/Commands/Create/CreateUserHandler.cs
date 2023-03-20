@@ -17,11 +17,11 @@ public class CreateUserHandler : IRequestHandler<CreateUserCommand,CreateUserRes
         var userDetails = new UserDetails(request.FirstName, request.LastName,request.BirthDate);
         var aggregate = new UserAggregate(request.Id,userDetails,userData);
 
-        await _eventSourcingHandler.SaveAsync(aggregate);
+        var userSaved = await _eventSourcingHandler.SaveAsync(aggregate);
         return new CreateUserResponse
         {
             Id = aggregate.Id,
-            Status = ApplicationCore.Enum.OperationStatus.Success,
+            Status = userSaved ? ApplicationCore.Enum.OperationStatus.Success : Enum.OperationStatus.Error,
         };
     }
 }

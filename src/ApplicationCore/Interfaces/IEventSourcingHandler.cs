@@ -4,6 +4,6 @@ namespace Users.ApplicationCore.Interfaces;
 
 public interface IEventSourcingHandler<T> where T:AggregateRoot
 {
-    Task SaveAsync(T aggregate);
+    Task<bool> SaveAsync(T aggregate);
 }
 

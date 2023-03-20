@@ -13,10 +13,11 @@ namespace Users.Infrastructure.Handlers
         }
 
 
-        public async Task SaveAsync(UserAggregate aggregate)
+        public async Task<bool> SaveAsync(UserAggregate aggregate)
         {
             await _eventStore.SaveEventsAsync(aggregate.Id, aggregate.GetUncommitedChanges(),aggregate.Version);
             aggregate.CommitChanges();
+            return aggregate.GetUncommitedChanges().Any();
         }
     }
 }
