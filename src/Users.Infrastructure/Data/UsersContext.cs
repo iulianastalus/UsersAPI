@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Users.ApplicationCore.Entities;
 using Users.ApplicationCore.ValueObjects;
@@ -9,11 +8,11 @@ namespace Users.Infrastructure.Data;
 public class UsersContext : IContext
 {
     public IMongoCollection<UserEntity> Users { get; }
-    public UsersContext(IConfiguration configuration, IOptions<DbSettings> dbSettings)
+    public UsersContext(IOptions<DbSettings> dbSettings)
     {
-        var dbClient = new MongoClient(configuration.GetValue<string>(dbSettings.Value.ConnectionString));
-        var database = dbClient.GetDatabase(configuration.GetValue<string>(dbSettings.Value.DatabaseName));
+        var dbClient = new MongoClient(dbSettings.Value.ConnectionString);
+        var database = dbClient.GetDatabase(dbSettings.Value.DatabaseName);
 
-        Users = database.GetCollection<UserEntity>(configuration.GetValue<string>(dbSettings.Value.CollectionName));
+        Users = database.GetCollection<UserEntity>(dbSettings.Value.CollectionName);
     }
 }

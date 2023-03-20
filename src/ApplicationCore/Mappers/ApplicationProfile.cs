@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Users.ApplicationCore.Commands;
+using EventBus.Messages.Events;
 using Users.ApplicationCore.Entities;
 
 namespace Users.ApplicationCore.Mappers;
@@ -8,6 +8,6 @@ public class ApplicationProfile :Profile
 {
     public ApplicationProfile() 
     {
-        CreateMap<CreateUserCommand, UserEntity>();
+        CreateMap<UserCreatedEvent, UserEntity>();
     }
 }

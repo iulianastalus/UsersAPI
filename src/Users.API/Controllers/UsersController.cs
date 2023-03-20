@@ -22,16 +22,9 @@ public class UsersController : ControllerBase
     [HttpPost("CreateUser")]
     public async Task<IActionResult> CreateUser(CreateUserCommand createUser)
     {
-
         createUser.Id = Guid.NewGuid();
-
-         await _mediator.Send(createUser);
-
-        return Ok(new CreateUserResponse
-        {
-            Id = createUser.Id,
-            Status = ApplicationCore.Enum.OperationStatus.Success,
-        });
+        var result = await _mediator.Send(createUser);
+        return Ok(result);
     }
 
     [HttpPost("DeleteUser")]

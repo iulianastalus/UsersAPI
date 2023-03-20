@@ -1,12 +1,10 @@
-﻿
-
+﻿using EventBus.Messages;
 using EventBus.Messages.Events;
 using EventBus.Messages.Events.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 
-namespace EventBus.Messages;
+namespace Users.ApplicationCore.Events;
 public class EventProducer :IEventProducer
 {
     private readonly ProducerConfig _config;

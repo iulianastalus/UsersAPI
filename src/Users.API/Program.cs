@@ -2,7 +2,6 @@
 
 using System.Runtime.CompilerServices;
 using Users.API.DependencyInjection;
-using Users.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +15,6 @@ builder.Services.RegisterConfigurations(builder.Configuration);
 builder.Services.RegisterCommonServices(builder.Configuration);
 builder.Services.RegisterSpecificServices();
 builder.Services.RegisterDbConnection();
-builder.Services.AddHostedService<MessageWorker>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
