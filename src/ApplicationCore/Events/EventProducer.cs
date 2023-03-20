@@ -1,12 +1,10 @@
-﻿
-
+﻿using EventBus.Messages;
 using EventBus.Messages.Events;
 using EventBus.Messages.Events.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Options;
-using System.Text.Json;
 
-namespace EventBus.Messages;
+namespace Users.ApplicationCore.Events;
 public class EventProducer :IEventProducer
 {
     private readonly ProducerConfig _config;
@@ -18,15 +16,9 @@ public class EventProducer :IEventProducer
         _publishEndPoint = publishEndPoint;
     }
 
-    public async Task ProduceAsync<T>(string topic, T @event) where T : IntegrationBaseEvent
+    public async Task ProduceAsync<T>(T @event) where T : IntegrationBaseEvent
     {
-        var eventMessage = new
-        {
-            Key = Guid.NewGuid().ToString(),
-            Value = JsonSerializer.Serialize(@event, @event.GetType())
-        };
-
-        await _publishEndPoint.Publish(eventMessage);       
+        await _publishEndPoint.Publish<UserCreatedEvent>(@event);       
     }
 }
 

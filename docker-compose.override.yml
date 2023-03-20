@@ -6,12 +6,13 @@ services:
     container_name: usersdb
     restart: always
     ports:
-      - "27017:27107"
+      - "27017:27017"
     volumes:
       - "users_data:/data/db" 
 
   rabbitmq:
     container_name: rabbitmq
+    hostname: "rabbitmq"
     restart: always
     ports:
       - "5672:5672"
@@ -21,7 +22,7 @@ services:
     container_name: "users.api"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - DatabaseSettings:ConnectionString=mongodb://localhost:27017,
+      - DatabaseSettings:ConnectionString=mongodb://usersdb:27017?directConnection=true&serverSelectionTimeoutMS=2000
       - RabbitConfig:ConnectionString=amqp://guest:guest@rabbitmq:5672
     depends_on:
       - usersdb

@@ -2,7 +2,7 @@
 
 namespace Users.ApplicationCore.Commands;
 
-public class CreateUserCommand : IRequest
+public class CreateUserCommand : IRequest<CreateUserResponse>
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; }

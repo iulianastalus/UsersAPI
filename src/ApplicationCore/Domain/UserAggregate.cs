@@ -1,5 +1,4 @@
 ﻿using EventBus.Messages.Events;
-using Users.ApplicationCore.Domain.Models;
 
 namespace Users.ApplicationCore.Domain;
 
@@ -7,8 +6,6 @@ public class UserAggregate : AggregateRoot
 {    
     public UserDetails UserDetails;
     public UserData UserData;
-    public Audit Audit { get; set; }
-
     public UserAggregate(Guid id, UserDetails userDetails, UserData userData)
     {
         this.Id = id;

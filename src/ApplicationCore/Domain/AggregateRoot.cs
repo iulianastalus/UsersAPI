@@ -15,9 +15,8 @@ public abstract class AggregateRoot
     {
         _changes.Clear();
     }
-    public void ApplyChange(IntegrationBaseEvent @event,bool isNew)
+    public void ApplyChange(IntegrationBaseEvent @event)
     {
-        var t = this.GetType().GetMethods();
         var method = this.GetType().GetMethod("Apply",new Type[] {@event.GetType() });
         
         if (method == null)
@@ -26,14 +25,11 @@ public abstract class AggregateRoot
         }
 
         method.Invoke(this, new object[] { @event });
-        if(isNew)
-        {
-            _changes.Add(@event);
-        }
+        _changes.Add(@event);
     }   
 
     protected void RaiseEvent(IntegrationBaseEvent @event)
     {
-        ApplyChange( @event, true );
+        ApplyChange(@event);
     }
 }
