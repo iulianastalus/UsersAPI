@@ -2,7 +2,7 @@
 
 namespace Users.ApplicationCore;
 
-public class BaseResponse
+public abstract class BaseResponse
 {
     public Guid Id { get; set; }
     public OperationStatus Status { get; set; }

@@ -50,4 +50,10 @@ public class UsersController : ControllerBase
             Status = ApplicationCore.Enum.OperationStatus.Success,
         });
     }
+
+    [HttpPost]
+    public async Task<IActionResult> RestoreUsersDb()
+    {
+        return Ok();
+    }
 }
