@@ -13,8 +13,8 @@ public class UsersController : ControllerBase
         _mediator= mediator;
     }
 
-    [HttpGet("GetUser")]
-    public IActionResult Get(string id)
+    [HttpGet("GetUserDetails")]
+    public IActionResult GetUserDetails(string id)
     {
         return Ok(new { id });
     }
@@ -40,7 +40,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("UpdateUser")]
-    public async Task<IActionResult> UpdateUser(UpdateUserResponse updateUser)
+    public async Task<IActionResult> UpdateUser(UpdateUserCommand updateUser)
     {
         await _mediator.Send(updateUser);
 
@@ -52,8 +52,14 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> RestoreUsersDb()
+    public async Task<IActionResult> RestoreUsersDb(RestoreUsersCommand restoreUsers)
     {
-        return Ok();
+        var result = await _mediator.Send(restoreUsers);
+        return Ok(new RestoreUserResponse
+        {
+            Id = result.Id,
+            Status = ApplicationCore.Enum.OperationStatus.Success
+
+        });
     }
 }
